@@ -67,7 +67,7 @@ public class LogReader {
             return null;
         }
         // create TestReport
-        return parseReport(reportString);
+        return parseReport(reportString, file);
     }
 
     private String readFile(File file) throws ReadFileException {
@@ -85,7 +85,7 @@ public class LogReader {
         return stringBuilder.toString();
     }
 
-    private TestReport parseReport(String report) {
+    private TestReport parseReport(String report, File file) {
         String testName = getStringByRegex(report, "[.]*test\\=([\\w\\d]*)[.]*");
         testName = testName.contains("=") ? testName.split("=")[1] : testName;
         String elapsedString = getStringByRegex(report, "[.]*elapsed\\=([\\d]*) [.]*");
@@ -98,6 +98,7 @@ public class LogReader {
         String logs = getLogs(report);
         String error = getError(report);
         return new TestReport(
+                file.getName().replace(".log", ""),
                 startTimeMilli,
                 elapsed,
                 testName,

@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TestReport {
 
+    private String filename;
     private Long startTime;
     private Long elapsed;
     private String name;

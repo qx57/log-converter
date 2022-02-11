@@ -11,16 +11,14 @@ import log_converter.exceptions.WriteException;
 
 import java.io.*;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.UUID;
+import java.util.*;
 
 public class LogWriter {
 
     private final Settings settings;
 
-    private List<TestResult> allureResults = new ArrayList<>();
+    private List<TestResult> allureResults;
+    private Map<String, String> reportFileNames;
 
     public LogWriter(Settings settings) {
         this.settings = settings;
@@ -28,6 +26,7 @@ public class LogWriter {
 
     public LogWriter convert(List<TestReport> reports) {
         allureResults = new ArrayList<>();
+        reportFileNames = new HashMap<>();
         for (TestReport report : reports) {
             TestResult itemAllureReport = new TestResult();
             itemAllureReport.setUuid(UUID.randomUUID().toString());
@@ -45,6 +44,7 @@ public class LogWriter {
             itemAllureReport.setStart(report.getStartTime());
             itemAllureReport.setStop(report.getStartTime() + report.getElapsed());
             allureResults.add(itemAllureReport);
+            reportFileNames.put(report.getName(), report.getFilename());
         }
         return this;
     }
@@ -72,9 +72,9 @@ public class LogWriter {
         ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
         try {
             String json = objectWriter.writeValueAsString(allureReport);
-            File allureReportFile = new File(String.format("%s/%s-result.json",
+            File allureReportFile = new File(String.format("%s/allure%s.json",
                     settings.getApp().getOutput().getPath(),
-                    allureReport.getUuid()));
+                    reportFileNames.get(allureReport.getName()).replace("test", "")));
             FileOutputStream fileOutputStream = new FileOutputStream(allureReportFile);
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(fileOutputStream));
             bufferedWriter.write(json);

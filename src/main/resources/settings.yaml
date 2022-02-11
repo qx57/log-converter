@@ -1,0 +1,5 @@
+app:
+  input:
+    path: test_results
+  output:
+    path: allure_reports

@@ -1,0 +1,6 @@
+.idea/
+target/
+allure_reports/
+Task.txt
+test_results.zip
+*.iml

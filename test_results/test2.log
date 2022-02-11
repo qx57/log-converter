@@ -1,0 +1,10 @@
+#Tue Jan 27 11:26:17 MSK 2022
+elapsed=6000 0:00:06
+test=test2
+
+----------log---------- 
+
+----------err---------- 
+'main' threw exception: java.lang.Exception
+
+test result: Failed

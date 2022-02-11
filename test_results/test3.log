@@ -1,0 +1,10 @@
+#Tue Jan 27 11:26:23 MSK 2022
+elapsed=4000 0:00:04
+test=test3
+
+----------log----------
+Thrown as expected: java.lang.Exception
+
+----------err---------- 
+
+test result: Passed

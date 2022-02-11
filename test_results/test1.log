@@ -1,0 +1,10 @@
+#Tue Jan 27 11:26:13 MSK 2022
+elapsed=4031 0:00:04.031
+test=test1
+
+----------log----------
+
+----------err----------  
+exit code: 1
+
+test result: Error
